@@ -1,0 +1,35 @@
+theme = "nightfox" # default, nightfox, ao, boo_berry
+
+[editor]
+true-color = true
+bufferline = "always"
+line-number = "relative"
+# rulers = [120]
+scroll-lines = 1
+gutters = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+
+[keys.normal] # do not sort!
+esc = ["collapse_selection", "keep_primary_selection"] # deselect all; keep primary cursor only
+backspace = ["move_next_word_end", "move_prev_word_end", "move_next_word_end", "delete_selection_noyank"] # delete current word
+D = ["ensure_selections_forward", "extend_to_line_end", "delete_selection"] # delete from current position until EOL
+X = "extend_line_above" # select line; if selected, select above line
+C-x = ["ensure_selections_forward", "extend_to_line_end"] # select from current to EOL
+
+[keys.insert]
+C-o = ["open_above"] # in-place, new line
+C-a = ["goto_line_start"]
+C-e = ["goto_line_end_newline"]
+C-b = ["move_char_left"]
+C-f = ["move_char_right"]
+
+
+
+
+
+

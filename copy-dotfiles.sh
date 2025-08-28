@@ -26,8 +26,9 @@ done
 
 # Helix languages.toml
 helix_src="${SCRIPT_DIR}/helix/languages.toml"
+helix_src_c="${SCRIPT_DIR}/helix/config.toml"
 helix_dst_dir="${HOME_DIR}/.config/helix"
-helix_dst="${helix_dst_dir}/languages.toml"
+helix_dst_c="${helix_dst_dir}/config.toml"
 
 if [ ! -f "${helix_src}" ]; then
   echo "Source file not found: ${helix_src}" >&2
@@ -37,7 +38,8 @@ fi
 mkdir -p "${helix_dst_dir}"
 echo "Copying ${helix_src} -> ${helix_dst}"
 cp -v "${helix_src}" "${helix_dst}"
+cp -v "${helix_src_c}" "${helix_dst_c}"
+
 
 echo "Dotfiles copied successfully."
-
 
