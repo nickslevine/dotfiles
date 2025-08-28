@@ -15,3 +15,4 @@
 
 Check
 - make sure pyright works
+- .zshrc being overwritten / new lnie issue

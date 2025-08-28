@@ -14,7 +14,7 @@ fi
 
 # Set default shell to zsh for the current user
 if [ "${SHELL:-}" != "${zsh_path}" ]; then
-  chsh -s "${zsh_path}"
+  sudo chsh -s /usr/bin/zsh "$USER"
 fi
 
 # If running in an interactive terminal, replace the current process with zsh
