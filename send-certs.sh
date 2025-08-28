@@ -10,4 +10,4 @@ fi
 echo "📁 Copying credentials..."
 scp -i "${PEM_FILE}" ~/.ssh/devbox_github ubuntu@"${DEVBOX_IP}":devbox_github
 scp -i "${PEM_FILE}" ~/.devbox/sa-key.json ubuntu@"${DEVBOX_IP}":sa-key.json
-# scp -i "${PEM_FILE}" ~/Dev/dotfiles/setup-auth.sh ubuntu@"${DEVBOX_IP}":setup-auth.sh
+scp -i "${PEM_FILE}" ~/Dev/dotfiles/setup.sh ubuntu@"${DEVBOX_IP}":setup.sh

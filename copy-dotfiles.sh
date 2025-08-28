@@ -4,8 +4,8 @@ set -e
 set -u
 set -o pipefail
 
-# Absolute path to the directory containing this script
-SCRIPT_DIR="${0:A:h}"
+# Absolute path to the directory containing this script (portable across shells)
+SCRIPT_DIR="$(cd "$(dirname -- "$0")" >/dev/null 2>&1 && pwd -P)"
 
 HOME_DIR="${HOME}"
 
