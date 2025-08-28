@@ -39,6 +39,7 @@ mkdir -p "${helix_dst_dir}"
 echo "Copying ${helix_src} -> ${helix_dst}"
 cp -v "${helix_src}" "${helix_dst}"
 cp -v "${helix_src_c}" "${helix_dst_c}"
+cp -v "${SCRIPT_DIR}/starship.toml" "${HOME_DIR}/.config/starship.toml"
 
 
 echo "Dotfiles copied successfully."
