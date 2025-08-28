@@ -414,7 +414,7 @@ fi
 
 uv tool install pyright
 
-curl -sS https://starship.rs/install.sh | sudo sh
+curl -sS https://starship.rs/install.sh | sudo sh -- -y
 
 log_ok "All requested packages are installed or already present."
 
