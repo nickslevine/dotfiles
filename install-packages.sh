@@ -412,5 +412,7 @@ if (( ${#FAILED_PACKAGES[@]} > 0 )); then
   exit 2
 fi
 
+uv tool install pyright
+
 log_ok "All requested packages are installed or already present."
 

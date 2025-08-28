@@ -1,0 +1,29 @@
+# ~/.config/helix/languages.toml
+
+# --- servers ---
+[language-server.pyright]
+command = "pyright-langserver"
+args = ["--stdio"]
+
+
+# (optional) Ruff LSP alongside Pyright
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+# --- Python ---
+[[language]]
+name = "python"
+roots = ["pyproject.toml", "setup.py", ".git"]
+language-servers = [
+    "pyright",
+    "ruff",
+] # or just ["pyright"] if you don't want Ruff LSP
+auto-format = true
+# Ruff formatter: read from stdin and supply the file name
+formatter = { command = "ruff", args = [
+    "format",
+    "--stdin-filename",
+    "%{buffer_name}",
+    "-",
+] }
