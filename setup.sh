@@ -5,5 +5,4 @@ bash setup-auth.sh
 bash install-packages.sh
 bash copy-dotfiles.sh
 sudo bash setup-shell.sh
-bash setup-api-keys.sh
 source ~/.zshrc

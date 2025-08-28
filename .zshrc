@@ -1,3 +1,12 @@
 export TERM="xterm-256color"
+export HF_TOKEN=$(gcloud secrets versions access latest --secret="HF_TOKEN" 2>/dev/null || echo "")
+export WANDB_API_KEY=$(gcloud secrets versions access latest --secret="WANDB_API_KEY" 2>/dev/null || echo "")
+
 ZSH_DISABLE_COMPFIX=true
 eval "$(starship init zsh)"
+
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-completions zsh-history-substring-search themes)
+
+source $ZSH/oh-my-zsh.sh
