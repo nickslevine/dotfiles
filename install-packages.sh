@@ -162,6 +162,7 @@ command_for_package() {
     "fd-find") echo "fd" ;;
     "uv") echo "uv" ;;
     "google cloud cli") echo "gcloud" ;;
+    "npm") echo "npm" ;;
     *) echo "" ;;
   esac
 }
@@ -179,6 +180,12 @@ install_on_macos() {
     "fd-find") brew install fd ;;
     "uv") install_uv_official ;;
     "google cloud cli") brew install --cask google-cloud-sdk ;;
+    "npm") 
+      # npm typically comes with Node.js on macOS via brew
+      if ! command_exists node; then
+        brew install node
+      fi
+      ;;
     *) log_warn "No macOS installer mapping for '${pkg}'. Skipping."; return 2 ;;
   esac
 }
@@ -301,6 +308,47 @@ install_on_ubuntu() {
       # Try apt if repo already configured; otherwise this will fail gracefully.
       sudo apt-get install -y google-cloud-cli || return 1
       ;;
+    "npm")
+      # Install Node.js and npm using nvm
+      local nvm_dir="${HOME}/.nvm"
+      local nvm_version="v0.40.3"
+      local node_version="22"
+      
+      # Check if nvm is already installed
+      if [[ ! -d "${nvm_dir}" ]]; then
+        log_info "Installing nvm ${nvm_version}..."
+        if curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/${nvm_version}/install.sh" | bash; then
+          log_ok "nvm installed successfully"
+        else
+          log_err "Failed to install nvm"
+          return 1
+        fi
+      fi
+      
+      # Source nvm for current session
+      if [[ -s "${nvm_dir}/nvm.sh" ]]; then
+        \. "${nvm_dir}/nvm.sh"
+      else
+        log_err "nvm.sh not found after installation"
+        return 1
+      fi
+      
+      # Install Node.js using nvm
+      log_info "Installing Node.js ${node_version} via nvm..."
+      if nvm install ${node_version}; then
+        log_ok "Node.js ${node_version} installed successfully"
+        
+        # Verify installations
+        local node_ver npm_ver
+        node_ver="$(node -v 2>/dev/null)" || node_ver="unknown"
+        npm_ver="$(npm -v 2>/dev/null)" || npm_ver="unknown"
+        log_info "Node.js version: ${node_ver}"
+        log_info "npm version: ${npm_ver}"
+      else
+        log_err "Failed to install Node.js ${node_version}"
+        return 1
+      fi
+      ;;
     *) log_warn "No Ubuntu installer mapping for '${pkg}'. Skipping."; return 2 ;;
   esac
 }
@@ -330,6 +378,11 @@ post_install_fixes() {
         else
           log_warn "uv not found on PATH. Ensure your shell PATH includes ${HOME}/.local/bin."
         fi
+      fi
+      ;;
+    "npm")
+      if [[ "${OS}" == "ubuntu" ]] && ! command_exists npm; then
+        log_warn "npm not found in PATH after install. You may need to restart your shell or source ~/.bashrc"
       fi
       ;;
   esac
@@ -395,6 +448,7 @@ PACKAGES=(
   "fd-find"
   "uv"
   "google cloud cli"
+  "npm"
 )
 
 # ------------------------------- Main ---------------------------------------
@@ -415,6 +469,18 @@ fi
 uv tool install pyright
 
 curl -sS https://starship.rs/install.sh | sudo sh 
+
+# Install Claude Code CLI globally if npm is available
+if command_exists npm; then
+  log_info "Installing @anthropic-ai/claude-code globally..."
+  if npm install -g @anthropic-ai/claude-code; then
+    log_ok "@anthropic-ai/claude-code installed globally"
+  else
+    log_warn "Failed to install @anthropic-ai/claude-code globally"
+  fi
+else
+  log_warn "npm not found; skipping @anthropic-ai/claude-code installation"
+fi
 
 log_ok "All requested packages are installed or already present."
 
