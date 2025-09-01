@@ -41,7 +41,7 @@ mkdir -p ~/.ssh || {
     exit 1
 }
 
-mv ~/devbox_github ~/.ssh/devbox_github || {
+cp ~/devbox_github ~/.ssh/devbox_github || {
     log_error "Failed to move SSH key"
     exit 1
 }

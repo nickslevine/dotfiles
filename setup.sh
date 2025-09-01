@@ -4,5 +4,6 @@ cd dotfiles
 bash setup-auth.sh
 bash install-packages.sh
 bash copy-dotfiles.sh
-sudo bash setup-shell.sh
-source ~/.zshrc
+# sudo bash setup-shell.sh
+# source ~/.zshrc
+source ~/.bashrc
