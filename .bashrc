@@ -6,5 +6,5 @@ export WANDB_API_KEY=$(gcloud secrets versions access latest --secret="WANDB_API
 alias sshconf="$EDITOR ~/.ssh/config"
 
 
-eval "$(starship init zsh)"
+eval "$(starship init bash)"
 
