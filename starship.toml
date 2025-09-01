@@ -5,3 +5,10 @@ disabled = true
 
 [aws]
 disabled = true
+
+[directory]
+# Show the full, untruncated path
+truncation_length = 0
+
+# Optional: don't truncate even if inside a repo
+truncate_to_repo = false

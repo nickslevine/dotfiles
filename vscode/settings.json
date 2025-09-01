@@ -1,0 +1,52 @@
+{
+    "editor.inlineSuggest.enabled": true,
+    "editor.formatOnSave": true,
+    "jupyter.askForKernelRestart": false,
+    "python.languageServer": "Pylance",
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.completeFunctionParens": true,
+    "python.analysis.diagnosticMode": "workspace",
+    // If you’re using a src/ layout, help Pylance resolve imports
+    "python.analysis.extraPaths": [
+        "src"
+    ],
+    "python.analysis.inlayHints.callArgumentNames": "all",
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "cursor.composer.shouldChimeAfterChatFinishes": true,
+    "notebook.output.wordWrap": true,
+    "python.analysis.exclude": [
+        "**.ipynb",
+        "**/.venv"
+    ],
+    "files.exclude": {
+        "**/.venv": true
+    },
+    "search.exclude": {
+        "**/.venv": true
+    },
+    "workbench.colorTheme": "Night Owl",
+    "remote.SSH.remotePlatform": {
+        "ubuntu@104.171.203.31": "linux",
+        "lambda": "linux",
+        "sft": "linux"
+    },
+    "go.toolsManagement.autoUpdate": true,
+    "terminal.integrated.suggest.enabled": true,
+    "notebook.output.scrolling": true,
+    "jupyter.widgetScriptSources": [
+        "jsdelivr.com",
+        "unpkg.com"
+    ],
+    "terminal.integrated.fontLigatures.enabled": true,
+    "terminal.integrated.fontFamily": "FiraCode Nerd Font Mono",
+    "editor.fontFamily": "FiraCode Nerd Font Mono",
+    "jupyter.runStartupCommands": [
+        "%load_ext autoreload",
+        "%autoreload 2"
+    ],
+    "editor.accessibilitySupport": "off",
+    "jupyter.interactiveWindow.creationMode": "single",
+}
