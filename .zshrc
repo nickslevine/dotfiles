@@ -1,3 +1,4 @@
+export PATH="/root/.local/bin:$PATH"
 export TERM="xterm-256color"
 export COLORTERM=truecolor
 export HF_TOKEN=$(gcloud secrets versions access latest --secret="HF_TOKEN" 2>/dev/null || echo "")

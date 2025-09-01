@@ -29,6 +29,7 @@ helix_src="${SCRIPT_DIR}/helix/languages.toml"
 helix_src_c="${SCRIPT_DIR}/helix/config.toml"
 helix_dst_dir="${HOME_DIR}/.config/helix"
 helix_dst_c="${helix_dst_dir}/config.toml"
+helix_dst_l="${helix_dst_dir}/languages.toml"
 
 if [ ! -f "${helix_src}" ]; then
   echo "Source file not found: ${helix_src}" >&2
@@ -36,8 +37,7 @@ if [ ! -f "${helix_src}" ]; then
 fi
 
 mkdir -p "${helix_dst_dir}"
-echo "Copying ${helix_src} -> ${helix_dst}"
-cp -v "${helix_src}" "${helix_dst}"
+cp -v "${helix_src}" "${helix_dst_l}"
 cp -v "${helix_src_c}" "${helix_dst_c}"
 cp -v "${SCRIPT_DIR}/starship.toml" "${HOME_DIR}/.config/starship.toml"
 
