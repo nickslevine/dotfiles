@@ -107,4 +107,6 @@ gcloud auth activate-service-account --key-file=$HOME/sa-key.json || {
     exit 1
 }
 
+gcloud config set project vintage-llm
+
 log_success "Google Cloud authentication configured"

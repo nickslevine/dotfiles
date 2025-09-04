@@ -12,3 +12,10 @@ ssh-add ~/.ssh/devbox_github
 
 eval "$(starship init bash)"
 
+
+# The next line updates PATH for the Google Cloud SDK.
+# if [ -f '/Users/nlevine/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/nlevine/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+# if [ -f '/Users/nlevine/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/nlevine/google-cloud-sdk/completion.zsh.inc'; fi
+
