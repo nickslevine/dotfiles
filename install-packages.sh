@@ -253,16 +253,16 @@ install_on_ubuntu() {
     "helix")
       apt_update_once
       # Ensure repository management tooling exists
-      sudo apt-get install -y software-properties-common || return 1
+      # sudo apt-get install -y software-properties-common || return 1
       # Add Helix PPA and refresh package lists
-      if sudo add-apt-repository -y ppa:maveonair/helix-editor; then
-        sudo apt-get update -y || return 1
-      else
-        log_warn "Failed to add Helix PPA; attempting install from existing repos."
-        sudo apt-get update -y || true
-      fi
+      # if sudo add-apt-repository -y ppa:maveonair/helix-editor; then
+        # sudo apt-get update -y || return 1
+      # else
+        # log_warn "Failed to add Helix PPA; attempting install from existing repos."
+        # sudo apt-get update -y || true
+      # fi
       # Install helix
-      sudo apt-get install -y helix || return 1
+      # sudo apt-get install -y helix || return 1
       ;;
     "ripgrep")
       apt_update_once
