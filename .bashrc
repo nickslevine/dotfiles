@@ -6,6 +6,7 @@ export WANDB_API_KEY=$(gcloud secrets versions access latest --secret="WANDB_API
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" 
+alias ll="eza -l"
 
 
 ssh-add ~/.ssh/devbox_github
