@@ -163,6 +163,7 @@ command_for_package() {
     "uv") echo "uv" ;;
     "google cloud cli") echo "gcloud" ;;
     "npm") echo "npm" ;;
+    "vim") echo "vim" ;;
     *) echo "" ;;
   esac
 }
@@ -186,6 +187,7 @@ install_on_macos() {
         brew install node
       fi
       ;;
+    "vim") brew install vim ;;
     *) log_warn "No macOS installer mapping for '${pkg}'. Skipping."; return 2 ;;
   esac
 }
@@ -251,18 +253,35 @@ install_on_ubuntu() {
       sudo apt-get install -y zellij || return 1
       ;;
     "helix")
-      apt_update_once
-      # Ensure repository management tooling exists
-      # sudo apt-get install -y software-properties-common || return 1
-      # Add Helix PPA and refresh package lists
-      # if sudo add-apt-repository -y ppa:maveonair/helix-editor; then
-        # sudo apt-get update -y || return 1
-      # else
-        # log_warn "Failed to add Helix PPA; attempting install from existing repos."
-        # sudo apt-get update -y || true
-      # fi
-      # Install helix
-      # sudo apt-get install -y helix || return 1
+      # Download and install official .deb package
+      local tmp_dir deb_file
+      tmp_dir="$(mktemp -d)" || return 1
+      deb_file="${tmp_dir}/helix.deb"
+      
+      log_info "Downloading helix .deb package..."
+      if command_exists wget; then
+        if ! wget -qO "${deb_file}" "https://github.com/helix-editor/helix/releases/download/25.07.1/helix_25.7.1-1_amd64.deb"; then
+          log_err "Failed to download helix .deb package"
+          rm -rf "${tmp_dir}"
+          return 1
+        fi
+      else
+        if ! curl -fsSL -o "${deb_file}" "https://github.com/helix-editor/helix/releases/download/25.07.1/helix_25.7.1-1_amd64.deb"; then
+          log_err "Failed to download helix .deb package"
+          rm -rf "${tmp_dir}"
+          return 1
+        fi
+      fi
+      
+      log_info "Installing helix from .deb package..."
+      if sudo apt install -y "${deb_file}"; then
+        rm -rf "${tmp_dir}"
+        return 0
+      else
+        log_err "Failed to install helix .deb package"
+        rm -rf "${tmp_dir}"
+        return 1
+      fi
       ;;
     "ripgrep")
       apt_update_once
@@ -348,6 +367,10 @@ install_on_ubuntu() {
         log_err "Failed to install Node.js ${node_version}"
         return 1
       fi
+      ;;
+    "vim")
+      apt_update_once
+      sudo apt-get install -y vim || return 1
       ;;
     *) log_warn "No Ubuntu installer mapping for '${pkg}'. Skipping."; return 2 ;;
   esac
@@ -449,6 +472,7 @@ PACKAGES=(
   "uv"
   "google cloud cli"
   "npm"
+  "vim"
 )
 
 # ------------------------------- Main ---------------------------------------
