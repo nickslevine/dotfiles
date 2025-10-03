@@ -28,4 +28,4 @@ curl -sS https://starship.rs/install.sh | sudo sh
 # Dotfiles
 bash ./copy-dotfiles.sh
 
-
+source ~/.bashrc
