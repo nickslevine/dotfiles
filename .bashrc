@@ -20,7 +20,6 @@ alias gc='git commit -m'
 alias rm='rm -i'   # confirm before delete
 alias cp='cp -i'   # confirm before overwrite
 
-ssh-add ~/.ssh/devbox_github
 
 eval "$(starship init bash)"
 
