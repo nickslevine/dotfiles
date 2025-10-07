@@ -10,6 +10,7 @@ NONINTERACTIVE=1 \
 ## uv
 curl -fsSL https://astral.sh/uv/install.sh | sh
 uv tool install pyright
+uv tool install nvitop
 
 ## Install npm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
