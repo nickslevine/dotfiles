@@ -9,7 +9,7 @@ SCRIPT_DIR="$(cd "$(dirname -- "$0")" >/dev/null 2>&1 && pwd -P)"
 
 HOME_DIR="${HOME}"
 
-files=(.zshrc .bashrc .gitconfig)
+files=(.zshrc .bashrc .gitconfig .tmux.conf)
 
 for file in ${files[@]}; do
   src_path="${SCRIPT_DIR}/${file}"
