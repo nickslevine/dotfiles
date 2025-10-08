@@ -16,6 +16,7 @@ alias ....='cd ../../..'
 
 alias gs='git status'
 alias gc='git commit -m'
+alias gpo="git push origin HEAD"
 
 alias rm='rm -i'   # confirm before delete
 alias cp='cp -i'   # confirm before overwrite
