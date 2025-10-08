@@ -20,6 +20,14 @@ alias gc='git commit -m'
 alias rm='rm -i'   # confirm before delete
 alias cp='cp -i'   # confirm before overwrite
 
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+
 
 eval "$(starship init bash)"
 

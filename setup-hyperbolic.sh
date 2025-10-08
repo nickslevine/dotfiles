@@ -57,5 +57,8 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 brew install zellij
 
+## Yazi
+brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick
+
 
 source ~/.bashrc
