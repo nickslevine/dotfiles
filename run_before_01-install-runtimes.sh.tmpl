@@ -14,8 +14,8 @@ export PATH="$HOME/.local/bin:$PATH"
 echo ">>> Installing mise runtimes..."
 mise install -y
 
-# Activate mise for this script
-eval "$(mise activate bash)"
+# Use mise shims instead of activate (works in non-interactive scripts)
+export PATH="$HOME/.local/share/mise/shims:$PATH"
 
 # uv tools
 echo ">>> Installing uv tools..."
