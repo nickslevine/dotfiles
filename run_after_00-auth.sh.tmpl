@@ -1,7 +1,12 @@
 #!/bin/bash
 set -euo pipefail
 
+{{ if eq .chezmoi.os "linux" }}
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{ else }}
 eval "$(brew shellenv 2>/dev/null || true)"
+{{ end }}
+export PATH="$HOME/.local/share/mise/shims:$HOME/.local/bin:$PATH"
 
 # GitHub CLI auth (if GH_TOKEN is set and gh isn't already authed)
 if [ -n "${GH_TOKEN:-}" ]; then
