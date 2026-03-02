@@ -14,26 +14,29 @@ if ! command -v mise &>/dev/null; then
 fi
 export PATH="$HOME/.local/bin:$PATH"
 
-# Install runtimes explicitly
+# Install runtimes (use -g writes config, install -y forces download)
 echo ">>> Installing runtimes via mise..."
-mise use -g node@lts -y
-mise use -g bun@latest -y
-mise use -g rust@latest -y
-mise use -g uv@latest -y
-mise use -g fzf@latest -y
+mise use -g node@lts
+mise use -g bun@latest
+mise use -g rust@latest
+mise use -g uv@latest
+mise use -g fzf@latest
+mise install -y
 mise reshim
 
-# Verify shims are available
+# Use shims
 export PATH="$HOME/.local/share/mise/shims:$PATH"
-echo ">>> uv path: $(which uv || echo 'NOT FOUND')"
+
+# Debug - verify tools exist
+echo ">>> Checking: uv=$(which uv 2>/dev/null || echo MISSING) node=$(which node 2>/dev/null || echo MISSING)"
 
 # uv tools
 echo ">>> Installing uv tools..."
-uv tool install pyright
-uv tool install nvitop
+"$HOME/.local/share/mise/shims/uv" tool install pyright
+"$HOME/.local/share/mise/shims/uv" tool install nvitop
 
 # AI CLI tools
 echo ">>> Installing AI CLI tools..."
 curl -fsSL https://claude.ai/install.sh | bash
-npm install -g @openai/codex
-npm install -g opencode-ai
+"$HOME/.local/share/mise/shims/npm" install -g @openai/codex
+"$HOME/.local/share/mise/shims/npm" install -g opencode-ai
