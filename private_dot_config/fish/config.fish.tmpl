@@ -3,6 +3,11 @@ fish_add_path ~/bin
 fish_add_path ~/.local/bin
 fish_add_path ~/.cargo/bin
 
+# Mise
+if command -q mise
+  mise activate fish | source
+end
+
 # Git
 set -gx GIT_AUTHOR_EMAIL "nickslevine@gmail.com"
 set -gx GIT_AUTHOR_NAME "Nick Levine"
