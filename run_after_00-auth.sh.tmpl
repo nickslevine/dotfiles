@@ -19,9 +19,11 @@ fi
 
 # GCS auth (if GCS_KEY is set)
 if [ -n "${GCS_KEY:-}" ]; then
-  echo ">>> Authenticating GCS..."
-  echo "$GCS_KEY" > /tmp/gcs-key.json
-  gcloud auth activate-service-account --key-file=/tmp/gcs-key.json
-  gcloud config set project vintage-llm
-  rm /tmp/gcs-key.json
+  if ! gcloud auth list 2>/dev/null | grep -q ACTIVE; then
+    echo ">>> Authenticating GCS..."
+    echo "$GCS_KEY" | sed 's/""/"/g' | sed 's/^"//;s/"$//' > /tmp/gcs-key.json
+    gcloud auth activate-service-account --key-file=/tmp/gcs-key.json
+    gcloud config set project vintage-llm
+    rm /tmp/gcs-key.json
+  fi
 fi
