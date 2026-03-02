@@ -1,0 +1,26 @@
+#!/bin/bash
+set -euo pipefail
+
+{{ if eq .chezmoi.os "linux" }}
+FISH_PATH="/home/linuxbrew/.linuxbrew/bin/fish"
+{{ else }}
+FISH_PATH="/opt/homebrew/bin/fish"
+{{ end }}
+
+if [ -x "$FISH_PATH" ]; then
+  # Add to /etc/shells if not already there
+  if ! grep -qF "$FISH_PATH" /etc/shells 2>/dev/null; then
+    echo ">>> Adding fish to /etc/shells..."
+    if [ "$(id -u)" -eq 0 ]; then
+      echo "$FISH_PATH" >> /etc/shells
+    else
+      echo "$FISH_PATH" | sudo tee -a /etc/shells >/dev/null
+    fi
+  fi
+
+  # Change login shell if not already fish
+  if [ "$(basename "$SHELL")" != "fish" ]; then
+    echo ">>> Setting fish as login shell..."
+    chsh -s "$FISH_PATH"
+  fi
+fi
