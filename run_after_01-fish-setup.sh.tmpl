@@ -1,0 +1,18 @@
+#!/bin/bash
+set -euo pipefail
+
+export PATH="$HOME/.local/bin:$HOME/bin:/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:$PATH"
+
+# Install zoxide
+if ! command -v zoxide &>/dev/null; then
+  echo ">>> Installing zoxide..."
+  curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+fi
+
+# Install fisher + plugins
+if [ ! -f ~/.config/fish/functions/fisher.fish ]; then
+  echo ">>> Installing fisher and plugins..."
+  fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher'
+  fish -c 'fisher install pure-fish/pure'
+  fish -c 'fisher install PatrickF1/fzf.fish'
+fi

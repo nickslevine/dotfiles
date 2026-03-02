@@ -10,6 +10,11 @@ set -gx GIT_AUTHOR_NAME "Nick Levine"
 # Editor
 set -gx EDITOR hx
 
+# Anthropic API key (set by pod-connect or locally)
+if test -n "$ANTHROPIC_API_KEY"
+  set -gx ANTHROPIC_API_KEY $ANTHROPIC_API_KEY
+end
+
 {{ if not .ephemeral }}
 # Local-only config (Mac)
 fish_add_path /opt/homebrew/bin
@@ -19,6 +24,11 @@ fish_add_path /opt/homebrew/bin
 # Ephemeral (Linux) - Homebrew on Linux
 fish_add_path /home/linuxbrew/.linuxbrew/bin
 {{ end }}
+
+# Zoxide
+if command -q zoxide
+  zoxide init fish | source
+end
 
 # --- Aliases ---
 
@@ -53,3 +63,6 @@ alias ... "cd ../.."
 
 # misc
 alias ports "ss -tlnp"
+
+# zoxide aliases
+alias cd "z"
