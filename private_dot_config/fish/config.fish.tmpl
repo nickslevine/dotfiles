@@ -1,0 +1,55 @@
+# PATH
+fish_add_path ~/bin
+fish_add_path ~/.local/bin
+fish_add_path ~/.cargo/bin
+
+# Git
+set -gx GIT_AUTHOR_EMAIL "nickslevine@gmail.com"
+set -gx GIT_AUTHOR_NAME "Nick Levine"
+
+# Editor
+set -gx EDITOR hx
+
+{{ if not .ephemeral }}
+# Local-only config (Mac)
+fish_add_path /opt/homebrew/bin
+{{ end }}
+
+{{ if .ephemeral }}
+# Ephemeral (Linux) - Homebrew on Linux
+fish_add_path /home/linuxbrew/.linuxbrew/bin
+{{ end }}
+
+# --- Aliases ---
+
+# eza (ls replacement)
+alias ls "eza"
+alias ll "eza -lah --git"
+alias lt "eza -lah --tree --level=2"
+alias la "eza -a"
+
+# bat (cat replacement)
+alias cat "bat --plain"
+
+# fd
+alias ff "fd"
+
+# ripgrep shortcuts
+alias rgf "rg --files | rg"
+alias rgi "rg -i"
+alias rgl "rg -l"
+
+# git
+alias gs "git status"
+alias gd "git diff"
+alias gl "git log --oneline -20"
+alias gp "git push"
+alias ga "git add -A"
+alias gc "git commit"
+
+# navigation
+alias .. "cd .."
+alias ... "cd ../.."
+
+# misc
+alias ports "ss -tlnp"

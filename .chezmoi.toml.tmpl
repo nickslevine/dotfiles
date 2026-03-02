@@ -1,0 +1,10 @@
+{{- $ephemeral := false -}}
+{{- if (env "CODESPACES") -}}
+{{-   $ephemeral = true -}}
+{{- else -}}
+{{-   $ephemeral = promptBoolOnce . "ephemeral" "Is this an ephemeral machine" -}}
+{{- end -}}
+
+[data]
+  ephemeral = {{ $ephemeral }}
+  email = "nickslevine@gmail.com"

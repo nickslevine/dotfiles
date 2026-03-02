@@ -1,0 +1,22 @@
+#!/bin/bash
+set -euo pipefail
+
+eval "$(brew shellenv 2>/dev/null || true)"
+
+# GitHub CLI auth (if GH_TOKEN is set and gh isn't already authed)
+if [ -n "${GH_TOKEN:-}" ]; then
+  if ! gh auth status &>/dev/null 2>&1; then
+    echo ">>> Authenticating GitHub CLI..."
+    echo "$GH_TOKEN" | gh auth login --with-token
+    gh auth setup-git
+  fi
+fi
+
+# GCS auth (if GCS_KEY is set)
+if [ -n "${GCS_KEY:-}" ]; then
+  echo ">>> Authenticating GCS..."
+  echo "$GCS_KEY" > /tmp/gcs-key.json
+  gcloud auth activate-service-account --key-file=/tmp/gcs-key.json
+  gcloud config set project vintage-llm
+  rm /tmp/gcs-key.json
+fi

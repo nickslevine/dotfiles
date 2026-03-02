@@ -1,0 +1,29 @@
+#!/bin/bash
+set -euo pipefail
+
+eval "$(brew shellenv 2>/dev/null || true)"
+
+# Install mise
+if ! command -v mise &>/dev/null; then
+  echo ">>> Installing mise..."
+  curl -fsSL https://mise.run | sh
+fi
+export PATH="$HOME/.local/bin:$PATH"
+
+# Install runtimes from ~/.mise.toml
+echo ">>> Installing mise runtimes..."
+mise install -y
+
+# Activate mise for this script
+eval "$(mise activate bash)"
+
+# uv tools
+echo ">>> Installing uv tools..."
+uv tool install pyright
+uv tool install nvitop
+
+# AI CLI tools
+echo ">>> Installing AI CLI tools..."
+npm install -g @anthropic-ai/claude-code
+npm install -g @openai/codex
+npm install -g opencode

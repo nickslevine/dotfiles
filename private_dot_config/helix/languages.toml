@@ -1,0 +1,15 @@
+[language-server.pyright]
+command = "pyright-langserver"
+args = ["--stdio"]
+[language-server.pyright.config.python]
+venvPath = "."
+venv = ".venv"
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+[[language]]
+name = "python"
+roots = ["pyproject.toml", "setup.py", ".git"]
+language-servers = ["pyright", "ruff"]
+auto-format = true
+formatter = { command = "ruff", args = ["format", "--stdin-filename", "%{buffer_name}", "-"] }
