@@ -1,7 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
+{{ if eq .chezmoi.os "linux" }}
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{ else }}
 eval "$(brew shellenv 2>/dev/null || true)"
+{{ end }}
 
 # Install mise
 if ! command -v mise &>/dev/null; then
@@ -10,11 +14,14 @@ if ! command -v mise &>/dev/null; then
 fi
 export PATH="$HOME/.local/bin:$PATH"
 
-# Install runtimes from ~/.mise.toml
-echo ">>> Installing mise runtimes..."
-mise install -y
+# Install runtimes explicitly (dotfiles not applied yet)
+echo ">>> Installing runtimes via mise..."
+mise use -g node@lts
+mise use -g bun@latest
+mise use -g rust@latest
+mise use -g uv@latest
+mise use -g fzf@latest
 
-# Use mise shims instead of activate (works in non-interactive scripts)
 export PATH="$HOME/.local/share/mise/shims:$PATH"
 
 # uv tools

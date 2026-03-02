@@ -16,16 +16,20 @@ fi
 if ! command -v brew &>/dev/null; then
   echo ">>> Installing Homebrew..."
   NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{ else }}
+eval "$(brew shellenv 2>/dev/null || true)"
 {{ end }}
 
-# Install brew packages
-eval "$(brew shellenv 2>/dev/null || true)"
+# Install brew packages (skip already installed)
 if command -v brew &>/dev/null; then
-  echo ">>> Installing brew packages..."
-  brew install helix tmux ripgrep zellij eza bat fd lazygit gh
+  echo ">>> Checking brew packages..."
+  PACKAGES="helix tmux ripgrep zellij eza bat fd lazygit gh"
   {{ if eq .chezmoi.os "linux" }}
-  brew install google-cloud-sdk
+  PACKAGES="$PACKAGES google-cloud-sdk"
   {{ end }}
+  for pkg in $PACKAGES; do
+    brew list "$pkg" &>/dev/null || brew install "$pkg"
+  done
 fi
