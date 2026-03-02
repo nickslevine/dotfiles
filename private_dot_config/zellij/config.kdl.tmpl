@@ -1,0 +1,5 @@
+{{ if eq .chezmoi.os "linux" }}
+default_shell "/home/linuxbrew/.linuxbrew/bin/fish"
+{{ else }}
+default_shell "/opt/homebrew/bin/fish"
+{{ end }}
