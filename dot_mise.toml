@@ -1,6 +1,0 @@
-[tools]
-node = "lts"
-bun = "latest"
-rust = "latest"
-uv = "latest"
-fzf = "latest"
