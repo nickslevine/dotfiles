@@ -21,6 +21,12 @@ if [ -x "$FISH_PATH" ]; then
   # Change login shell if not already fish
   if [ "$(basename "$SHELL")" != "fish" ]; then
     echo ">>> Setting fish as login shell..."
-    chsh -s "$FISH_PATH"
+    if [ "$(id -u)" -eq 0 ]; then
+      chsh -s "$FISH_PATH"
+    else
+      sudo usermod -s "$FISH_PATH" "$(whoami)" 2>/dev/null || \
+        sudo chsh -s "$FISH_PATH" "$(whoami)" 2>/dev/null || \
+        echo ">>> Could not change login shell (no password/sudo). pod-connect handles this."
+    fi
   fi
 fi
