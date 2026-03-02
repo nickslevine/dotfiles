@@ -14,15 +14,18 @@ if ! command -v mise &>/dev/null; then
 fi
 export PATH="$HOME/.local/bin:$PATH"
 
-# Install runtimes explicitly (dotfiles not applied yet)
+# Install runtimes explicitly
 echo ">>> Installing runtimes via mise..."
-mise use -g node@lts
-mise use -g bun@latest
-mise use -g rust@latest
-mise use -g uv@latest
-mise use -g fzf@latest
+mise use -g node@lts -y
+mise use -g bun@latest -y
+mise use -g rust@latest -y
+mise use -g uv@latest -y
+mise use -g fzf@latest -y
+mise reshim
 
+# Verify shims are available
 export PATH="$HOME/.local/share/mise/shims:$PATH"
+echo ">>> uv path: $(which uv || echo 'NOT FOUND')"
 
 # uv tools
 echo ">>> Installing uv tools..."
